@@ -7,15 +7,6 @@
 #include <packagekitqt5/PackageKit/Transaction>
 #include <packagekitqt5/PackageKit/Daemon>
 
-#include <polkit-qt5-1/PolkitQt1/Agent/Session>
-#include <polkit-qt5-1/PolkitQt1/Agent/Listener>
-#include <polkit-qt5-1/PolkitQt1/ActionDescription>
-#include <polkit-qt5-1/PolkitQt1/Authority>
-#include <polkit-qt5-1/PolkitQt1/Details>
-#include <polkit-qt5-1/PolkitQt1/Identity>
-#include <polkit-qt5-1/PolkitQt1/Subject>
-#include <polkit-qt5-1/PolkitQt1/TemporaryAuthorization>
-
 #include "pkdbusAdaptor.h"
 
 //#include <Details>
@@ -49,6 +40,7 @@ private slots:
 
 
 //加入 /usr/share/dbus-1/services/com.emindsoft.pkdbus.service   sessionBuss()可以自动调起。 systemBus注册失败。
+// 目录放错了，应该放到/usr/share/dbus-1/system-services里
 
 
 #endif // PKDBUS_H

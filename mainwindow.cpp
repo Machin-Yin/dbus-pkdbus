@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(widget);
 
     connect(installButton, SIGNAL(clicked()), this, SLOT(installPackage()));
-    ComEmindsoftPkdbusRegistryInterface *myInterface= new ComEmindsoftPkdbusRegistryInterface(QString(),QString(),QDBusConnection::sessionBus(),this);
+    ComEmindsoftPkdbusRegistryInterface *myInterface= new ComEmindsoftPkdbusRegistryInterface(QString(),QString(),QDBusConnection::systemBus(),this);
     QObject::connect(myInterface,SIGNAL(isInstallSuccess(bool)),this,SLOT(isInstallSuccess(bool)));
 
 //    // 初始化自动生成的Proxy类com::emindsoft::pkdbus::registry
@@ -45,7 +45,7 @@ void MainWindow::installPackage()
 
     com::emindsoft::pkdbus::registry pkDbus("com.emindsoft.pkdbus",
                                        "/pkdbus/registry",
-                                       QDBusConnection::sessionBus());
+                                       QDBusConnection::systemBus());
 
    pkDbus.installPackage(packageName);
 //   QDBusConnection::sessionBus().connect(QString(), QString(), "com.emindsoft.pkdbus", "isInstallSuccess", this, SLOT(isInstallSuccess(bool)));

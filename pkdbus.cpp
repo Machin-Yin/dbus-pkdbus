@@ -1,6 +1,6 @@
-#include "pkdbus.h"
 #include <iostream>
-//#include <unistd.h>
+#include "pkdbus.h"
+#include "pkpolicykit.h"
 
 using namespace std;
 
@@ -10,27 +10,15 @@ PkDbus::PkDbus(QObject *parent) : QObject(parent)
     qDebug() << __FUNCTION__;
 
     (void) new RegistryAdaptor(this);
-    if (!QDBusConnection::sessionBus().registerService("com.emindsoft.pkdbus")) {
+    if (!QDBusConnection::systemBus().registerService("com.emindsoft.pkdbus")) {
         qDebug() << "another pkdbus is already running";
         QCoreApplication::instance()->quit();
     }
 
-    if (!QDBusConnection::sessionBus().registerObject("/pkdbus/registry", this)) {
+    if (!QDBusConnection::systemBus().registerObject("/pkdbus/registry", this)) {
         qDebug() << "unable to register service interface to dbus";
         QCoreApplication::instance()->quit();
     }
-
-//    QDBusConnection bus = QDBusConnection::sessionBus();
-//    PkDbus pkDbus;
-//    // RegistryAdaptor是qdbusxml2cpp生成的Adaptor类
-//    RegistryAdaptor myAdaptor(&pkDbus);
-
-//    if (!bus.registerService("com.emindsoft.pkdbus")) {
-//            qDebug() << bus.lastError().message();
-//            exit(1);
-//    }
-
-//    bus.registerObject("/pkdbus/registry", this);
 
 }
 
@@ -38,19 +26,14 @@ void PkDbus::installPackage(QString packageName)
 {
     qDebug() << __FUNCTION__ << packageName;
 
-//    PolkitQt1::Authority::Result result;
-
-//    result = PolkitQt1::Authority ("org.kde.foo.action2",
-//                                      message().service(),
-//                                      true);
-//    if (result == PolkitQt1::Authority::Yes) {
-//        qDebug() << message().service() << QString(" authorized");
-//    } else {
-//        qDebug() << QString("Not authorized");
-//        QCoreApplication::instance()->quit();
-//        return;
-//    }
-
+    if(PkPolicyKit::instance()->checkAuthorization("com.emindsoft.pkdbus.installPackage", getpid()))
+    {
+        qDebug() <<  "Hello DBus";
+    }
+    else
+    {
+        qDebug() <<  "无权限";
+    }
 
     PackageKit::Transaction *resolveTransaction = PackageKit::Daemon::resolve(packageName,
                                                                               //                                                   PackageKit::Transaction::FilterNone);

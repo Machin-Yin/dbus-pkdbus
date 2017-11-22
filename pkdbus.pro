@@ -8,14 +8,18 @@ TARGET = pkdbus
 #CONFIG -= app_bundle
 TEMPLATE = app
 SOURCES += pkdbus.cpp \
-    pkdbusAdaptor.cpp
+    pkdbusAdaptor.cpp \
+    pkpolicykit.cpp
 HEADERS += pkdbus.h \
-    pkdbusAdaptor.h
+    pkdbusAdaptor.h \
+    pkpolicykit.h
 INCLUDEPATH += /usr/include/packagekitqt5/PackageKit \
-#               /usr/include/polkit-qt5-1/PolkitQt1
+               /usr/include/polkit-qt5-1/PolkitQt1
 
 LIBS += /usr/lib/x86_64-linux-gnu/libpackagekitqt5.so \
-#        /usr/lib/x86_64-linux-gnu/polkit-1/extensions/libnullbackend.so
+        /usr/lib/x86_64-linux-gnu/libpolkit-qt5-agent-1.so \
+        /usr/lib/x86_64-linux-gnu/libpolkit-qt5-core-1.so
+
 
 DISTFILES += \
     com.emindsoft.pkdbus.xml
