@@ -21,11 +21,15 @@ private:
     QPushButton *uninstallButton;
     QPushButton *openButton;
     QHBoxLayout *hboxLayout;
+
 public slots:
     void installPackage();
+    void removePackage();
 
 private slots:
     void isInstallSuccess(bool install);
+    void slotHelloDbus(bool);
+    void isRemoveSuccess(bool rem);
 };
 
 #endif // MAINWINDOW_H

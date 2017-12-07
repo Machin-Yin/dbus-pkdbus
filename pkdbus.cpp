@@ -22,6 +22,9 @@ PkDbus::PkDbus(QObject *parent) : QObject(parent)
 
 }
 
+
+// install
+
 void PkDbus::installPackage(QString packageName)
 {
     qDebug() << __FUNCTION__ << packageName;
@@ -29,10 +32,13 @@ void PkDbus::installPackage(QString packageName)
     if(PkPolicyKit::instance()->checkAuthorization("com.emindsoft.pkdbus.installPackage", getpid()))
     {
         qDebug() <<  "Hello DBus";
+        emit helloDbus(true);
     }
     else
     {
         qDebug() <<  "无权限";
+        emit helloDbus(false);
+//        return;
     }
 
     PackageKit::Transaction *resolveTransaction = PackageKit::Daemon::resolve(packageName,
@@ -92,6 +98,47 @@ void PkDbus::packageInstallFinished(PackageKit::Transaction::Exit status, uint r
         qDebug() << "Package Install Failure!";
     }
 }
+
+// uninstall
+
+void PkDbus::removePackage(QString pacId)
+{
+    if(PkPolicyKit::instance()->checkAuthorization("com.emindsoft.pkdbus.installPackage", getpid()))
+    {
+        qDebug() <<  "Hello DBus";
+        emit helloDbus(true);
+    }
+    else
+    {
+        qDebug() <<  "无权限";
+        emit helloDbus(false);
+//        return;
+    }
+
+    PackageKit::Transaction *uninstallTransaction = PackageKit::Daemon::removePackage(pacId);
+    connect(uninstallTransaction,
+            SIGNAL(finished(PackageKit::Transaction::Exit, uint)),
+            SLOT(removeFinished(PackageKit::Transaction::Exit, uint)));
+}
+
+void PkDbus::removeFinished(PackageKit::Transaction::Exit status, uint runtime)
+{
+    qDebug() << "packageFinished() status: " << status << endl;
+    qDebug() << "packageFinished() on of seconds: " << runtime << endl;
+    if (status == PackageKit::Transaction::Exit::ExitSuccess)
+    {
+        qDebug() << "Package remove success! ^_^";
+        emit isPacRmvSuccess(true);
+    }
+    else
+    {
+        emit isPacRmvSuccess(false);
+        qDebug() << "Package remove Failure! ~_~";
+    }
+}
+
+
+
 
 int main(int argc, char *argv[])
 {

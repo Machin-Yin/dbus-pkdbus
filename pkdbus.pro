@@ -22,6 +22,7 @@ LIBS += /usr/lib/x86_64-linux-gnu/libpackagekitqt5.so \
 
 
 DISTFILES += \
-    com.emindsoft.pkdbus.xml
+    com.emindsoft.pkdbus.xml \
+    README.md
 
 

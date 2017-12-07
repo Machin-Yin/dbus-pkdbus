@@ -35,8 +35,17 @@ class RegistryAdaptor: public QDBusAbstractAdaptor
 "    <signal name=\"isInstallSuccess\">\n"
 "      <arg direction=\"out\" type=\"b\"/>\n"
 "    </signal>\n"
+"    <signal name=\"helloDbus\">\n"
+"      <arg direction=\"out\" type=\"b\"/>\n"
+"    </signal>\n"
+"    <signal name=\"isPacRmvSuccess\">\n"
+"      <arg direction=\"out\" type=\"b\"/>\n"
+"    </signal>\n"
 "    <method name=\"installPackage\">\n"
 "      <arg direction=\"in\" type=\"s\" name=\"packageName\"/>\n"
+"    </method>\n"
+"    <method name=\"removePackage\">\n"
+"      <arg direction=\"in\" type=\"s\" name=\"pacId\"/>\n"
 "    </method>\n"
 "  </interface>\n"
         "")
@@ -47,8 +56,11 @@ public:
 public: // PROPERTIES
 public Q_SLOTS: // METHODS
     void installPackage(const QString &packageName);
+    void removePackage(const QString &pacId);
 Q_SIGNALS: // SIGNALS
+    void helloDbus(bool in0);
     void isInstallSuccess(bool in0);
+    void isPacRmvSuccess(bool in0);
 };
 
 #endif

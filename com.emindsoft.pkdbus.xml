@@ -4,8 +4,17 @@
     <signal name="isInstallSuccess">
       <arg type="b" direction="out"/>
     </signal>
+    <signal name="helloDbus">
+      <arg type="b" direction="out"/>
+    </signal>
+    <signal name="isPacRmvSuccess">
+      <arg type="b" direction="out"/>
+    </signal>
     <method name="installPackage">
       <arg name="packageName" type="s" direction="in"/>
+    </method>
+    <method name="removePackage">
+      <arg name="pacId" type="s" direction="in"/>
     </method>
   </interface>
 </node>

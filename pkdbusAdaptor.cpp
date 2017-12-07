@@ -39,3 +39,9 @@ void RegistryAdaptor::installPackage(const QString &packageName)
     QMetaObject::invokeMethod(parent(), "installPackage", Q_ARG(QString, packageName));
 }
 
+void RegistryAdaptor::removePackage(const QString &pacId)
+{
+    // handle method call com.emindsoft.pkdbus.registry.removePackage
+    QMetaObject::invokeMethod(parent(), "removePackage", Q_ARG(QString, pacId));
+}
+

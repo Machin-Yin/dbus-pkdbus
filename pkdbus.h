@@ -23,20 +23,24 @@ public:
 
 signals:
     void isInstallSuccess(bool);
+    void helloDbus(bool);
+    void isPacRmvSuccess(bool);
 
 public slots:
     void installPackage(QString packageName);
+    void removePackage(QString pacId);
 
 private slots:
     void packageInstall(PackageKit::Transaction::Info, QString packageID, QString summary);
     void resolveFinished(PackageKit::Transaction::Exit status, uint runtime);
     void packageInstallFinished(PackageKit::Transaction::Exit status, uint runtime);
+    void removeFinished(PackageKit::Transaction::Exit status, uint runtime);
 
 };
 
 // qdbuscpp2xml -M -S pkdbus.h -o com.emindsoft.pkdbus.xml
 // qdbusxml2cpp com.emindsoft.pkdbus.xml -a pkdbusAdaptor
-// qdbusxml2cpp com.emindsoft.pkdbus.xml -p pkdbusInterface.cpp
+// qdbusxml2cpp com.emindsoft.pkdbus.xml -p pkdbusInterface
 
 
 //加入 /usr/share/dbus-1/services/com.emindsoft.pkdbus.service   sessionBuss()可以自动调起。 systemBus注册失败。

@@ -43,8 +43,17 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("installPackage"), argumentList);
     }
 
+    inline QDBusPendingReply<> removePackage(const QString &pacId)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(pacId);
+        return asyncCallWithArgumentList(QStringLiteral("removePackage"), argumentList);
+    }
+
 Q_SIGNALS: // SIGNALS
+    void helloDbus(bool in0);
     void isInstallSuccess(bool in0);
+    void isPacRmvSuccess(bool in0);
 };
 
 namespace com {

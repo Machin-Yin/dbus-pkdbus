@@ -22,8 +22,12 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(widget);
 
     connect(installButton, SIGNAL(clicked()), this, SLOT(installPackage()));
+    connect(uninstallButton, SIGNAL(clicked()), this, SLOT(removePackage()));
     ComEmindsoftPkdbusRegistryInterface *myInterface= new ComEmindsoftPkdbusRegistryInterface(QString(),QString(),QDBusConnection::systemBus(),this);
+    QObject::connect(myInterface,SIGNAL(helloDbus(bool)),this,SLOT(slotHelloDbus(bool)));
     QObject::connect(myInterface,SIGNAL(isInstallSuccess(bool)),this,SLOT(isInstallSuccess(bool)));
+    QObject::connect(myInterface,SIGNAL(isPacRmvSuccess(bool)),this,SLOT(isRemoveSuccess(bool)));
+
 
 //    // 初始化自动生成的Proxy类com::emindsoft::pkdbus::registry
 //    com::emindsoft::pkdbus::registry pkDbus("com.emindsoft.pkdbus",
@@ -47,13 +51,34 @@ void MainWindow::installPackage()
                                        "/pkdbus/registry",
                                        QDBusConnection::systemBus());
 
-   pkDbus.installPackage(packageName);
-//   QDBusConnection::sessionBus().connect(QString(), QString(), "com.emindsoft.pkdbus", "isInstallSuccess", this, SLOT(isInstallSuccess(bool)));
-
+    pkDbus.installPackage(packageName);
 }
 
 void MainWindow::isInstallSuccess(bool install)
 {
     qDebug() << __FUNCTION__ << ": install == " << install;
+
+}
+
+void MainWindow::removePackage()
+{
+    qDebug() << __FUNCTION__;
+    QString packageId = "blueberry;1.1.5;all;installed:emindsoft-liuriver-main";
+
+    com::emindsoft::pkdbus::registry pkDbus("com.emindsoft.pkdbus",
+                                       "/pkdbus/registry",
+                                       QDBusConnection::systemBus());
+
+    pkDbus.removePackage(packageId);
+}
+
+void MainWindow::isRemoveSuccess(bool rem)
+{
+    qDebug() << "The remove package rem == " << rem;
+}
+
+void MainWindow::slotHelloDbus(bool hello)
+{
+    qDebug() << __FUNCTION__ << ": hello == " << hello;
 
 }
