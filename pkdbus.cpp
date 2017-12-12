@@ -29,17 +29,17 @@ void PkDbus::installPackage(QString packageName)
 {
     qDebug() << __FUNCTION__ << packageName;
 
-    if(PkPolicyKit::instance()->checkAuthorization("com.emindsoft.pkdbus.installPackage", getpid()))
-    {
-        qDebug() <<  "Hello DBus";
-        emit helloDbus(true);
-    }
-    else
-    {
-        qDebug() <<  "无权限";
-        emit helloDbus(false);
-//        return;
-    }
+//    if(PkPolicyKit::instance()->checkAuthorization("com.emindsoft.pkdbus.installPackage", getpid()))
+//    {
+//        qDebug() <<  "Hello DBus";
+//        emit helloDbus(true);
+//    }
+//    else
+//    {
+//        qDebug() <<  "无权限";
+//        emit helloDbus(false);
+// //        return;
+//    }
 
     PackageKit::Transaction *resolveTransaction = PackageKit::Daemon::resolve(packageName,
                                                                               //                                                   PackageKit::Transaction::FilterNone);
@@ -103,17 +103,17 @@ void PkDbus::packageInstallFinished(PackageKit::Transaction::Exit status, uint r
 
 void PkDbus::removePackage(QString pacId)
 {
-    if(PkPolicyKit::instance()->checkAuthorization("com.emindsoft.pkdbus.installPackage", getpid()))
-    {
-        qDebug() <<  "Hello DBus";
-        emit helloDbus(true);
-    }
-    else
-    {
-        qDebug() <<  "无权限";
-        emit helloDbus(false);
-//        return;
-    }
+//    if(PkPolicyKit::instance()->checkAuthorization("com.emindsoft.pkdbus.installPackage", getpid()))
+//    {
+//        qDebug() <<  "Hello DBus";
+//        emit helloDbus(true);
+//    }
+//    else
+//    {
+//        qDebug() <<  "无权限";
+//        emit helloDbus(false);
+// //        return;
+//    }
 
     PackageKit::Transaction *uninstallTransaction = PackageKit::Daemon::removePackage(pacId);
     connect(uninstallTransaction,
@@ -137,7 +137,13 @@ void PkDbus::removeFinished(PackageKit::Transaction::Exit status, uint runtime)
     }
 }
 
-
+void PkDbus::openApp(QString openAppName)
+{
+//    QProcess *proc = new QProcess;
+    QProcess *proc = new QProcess;
+    proc->start(openAppName);
+    emit helloDbus(true);
+}
 
 
 int main(int argc, char *argv[])

@@ -2,8 +2,16 @@
 qt-dbus test project
 
 1.
-/usr/share/dbus-1/system-services/com.emindsoft.pkdbus.service          // 自动调起服务
+// qdbuscpp2xml -M -S pkdbus.h -o com.emindsoft.pkdbus.xml
+// qdbusxml2cpp com.emindsoft.pkdbus.xml -a pkdbusAdaptor
+// qdbusxml2cpp com.emindsoft.pkdbus.xml -p pkdbusInterface
 
+//加入 /usr/share/dbus-1/services/com.emindsoft.pkdbus.service   sessionBuss()可以自动调起。 systemBus注册失败。
+// 目录放错了，应该放到/usr/share/dbus-1/system-services里
+
+
+
+/usr/share/dbus-1/system-services/com.emindsoft.pkdbus.service          // 自动调起服务
 [D-BUS Service]
 Name=com.emindsoft.pkdbus
 Exec=/usr/bin/pkdbus
@@ -35,15 +43,6 @@ User=root
   </policy>
 
 </busconfig>
-
-3.
-// qdbuscpp2xml -M -S pkdbus.h -o com.emindsoft.pkdbus.xml
-// qdbusxml2cpp com.emindsoft.pkdbus.xml -a pkdbusAdaptor
-// qdbusxml2cpp com.emindsoft.pkdbus.xml -p pkdbusInterface
-
-
-//加入 /usr/share/dbus-1/services/com.emindsoft.pkdbus.service   sessionBuss()可以自动调起。 systemBus注册失败。
-// 目录放错了，应该放到/usr/share/dbus-1/system-services里
 
 
 4.

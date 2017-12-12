@@ -16,5 +16,8 @@
     <method name="removePackage">
       <arg name="pacId" type="s" direction="in"/>
     </method>
+    <method name="openApp">
+      <arg name="openAppName" type="s" direction="in"/>
+    </method>
   </interface>
 </node>

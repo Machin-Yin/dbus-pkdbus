@@ -30,6 +30,7 @@ private slots:
     void isInstallSuccess(bool install);
     void slotHelloDbus(bool);
     void isRemoveSuccess(bool rem);
+    void openApp();
 };
 
 #endif // MAINWINDOW_H

@@ -43,6 +43,13 @@ public Q_SLOTS: // METHODS
         return asyncCallWithArgumentList(QStringLiteral("installPackage"), argumentList);
     }
 
+    inline QDBusPendingReply<> openApp(const QString &openAppName)
+    {
+        QList<QVariant> argumentList;
+        argumentList << QVariant::fromValue(openAppName);
+        return asyncCallWithArgumentList(QStringLiteral("openApp"), argumentList);
+    }
+
     inline QDBusPendingReply<> removePackage(const QString &pacId)
     {
         QList<QVariant> argumentList;

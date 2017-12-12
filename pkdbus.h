@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtCore>
 #include <QtDBus>
+#include <QProcess>
 #include <packagekitqt5/PackageKit/Transaction>
 #include <packagekitqt5/PackageKit/Daemon>
 
@@ -29,6 +30,7 @@ signals:
 public slots:
     void installPackage(QString packageName);
     void removePackage(QString pacId);
+    void openApp(QString openAppName);
 
 private slots:
     void packageInstall(PackageKit::Transaction::Info, QString packageID, QString summary);

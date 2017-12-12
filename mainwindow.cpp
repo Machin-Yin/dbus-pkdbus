@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(installButton, SIGNAL(clicked()), this, SLOT(installPackage()));
     connect(uninstallButton, SIGNAL(clicked()), this, SLOT(removePackage()));
+    connect(openButton, SIGNAL(clicked()), this, SLOT(openApp()));
     ComEmindsoftPkdbusRegistryInterface *myInterface= new ComEmindsoftPkdbusRegistryInterface(QString(),QString(),QDBusConnection::systemBus(),this);
     QObject::connect(myInterface,SIGNAL(helloDbus(bool)),this,SLOT(slotHelloDbus(bool)));
     QObject::connect(myInterface,SIGNAL(isInstallSuccess(bool)),this,SLOT(isInstallSuccess(bool)));
@@ -80,5 +81,19 @@ void MainWindow::isRemoveSuccess(bool rem)
 void MainWindow::slotHelloDbus(bool hello)
 {
     qDebug() << __FUNCTION__ << ": hello == " << hello;
+
+}
+
+void MainWindow::openApp()
+{
+    qDebug() << __FUNCTION__;
+    QString appName =  "blueberry";
+    com::emindsoft::pkdbus::registry pkDbus("com.emindsoft.pkdbus",
+                                       "/pkdbus/registry",
+                                       QDBusConnection::systemBus());
+
+    pkDbus.openApp(appName);
+//    QProcess *proc = new QProcess;
+//    proc->start(appName);
 
 }

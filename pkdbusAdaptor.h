@@ -47,6 +47,9 @@ class RegistryAdaptor: public QDBusAbstractAdaptor
 "    <method name=\"removePackage\">\n"
 "      <arg direction=\"in\" type=\"s\" name=\"pacId\"/>\n"
 "    </method>\n"
+"    <method name=\"openApp\">\n"
+"      <arg direction=\"in\" type=\"s\" name=\"openAppName\"/>\n"
+"    </method>\n"
 "  </interface>\n"
         "")
 public:
@@ -56,6 +59,7 @@ public:
 public: // PROPERTIES
 public Q_SLOTS: // METHODS
     void installPackage(const QString &packageName);
+    void openApp(const QString &openAppName);
     void removePackage(const QString &pacId);
 Q_SIGNALS: // SIGNALS
     void helloDbus(bool in0);
