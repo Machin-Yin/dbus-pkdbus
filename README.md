@@ -20,8 +20,7 @@ User=root
 
 
 2.
-/usr/share/dbus-1/services/com.emindsoft.pkdbus.conf          //
-
+/usr/share/dbus-1/services/com.emindsoft.pkdbus.conf          // PolicyKit  这里用不到，暂时保留，提示用法。
 <?xml version="1.0" encoding="UTF-8"?> <!-- -*- XML -*- -->
 
 <!DOCTYPE busconfig PUBLIC
